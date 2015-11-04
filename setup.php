@@ -26,7 +26,7 @@ print "============". $endpoint . "================\n";
 
 $link = mysqli_connect($endpoint,"controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
 echo "Here is the result: " . $link;
-$sql = "CREATE TABLE Users 
+$sql = "CREATE TABLE users 
 (
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(20),

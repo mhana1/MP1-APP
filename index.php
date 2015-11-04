@@ -1,8 +1,5 @@
 <?php
-date_default_timezone_set('America/Chicago'); 
-$date = date("d M Y - h:i:s A"); 
 $value = $uname  = $email = $phone = $file = "";
-
 
 
 function is_empty($value){
