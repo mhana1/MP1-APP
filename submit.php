@@ -58,7 +58,7 @@ $endpoint = $result['DBInstances']['Endpoint']['Address'];
     echo "============". $endpoint . "================";
 	
 //echo "begin database";
-$link = mysqli_connect($endpoint,"controller","letmein888","users") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","mhana1DB",3306) or die("Error " . mysqli_error($link));
 /* check connection */
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
