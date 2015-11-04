@@ -24,7 +24,7 @@ $result = $rds->describeDBInstances([
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============". $endpoint . "================\n";
 
-$link = mysqli_connect($endpoint,"controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","mhana1DB",3306) or die("Error " . mysqli_error($link)); 
 echo "Here is the result: " . $link;
 $sql = "CREATE TABLE users 
 (
