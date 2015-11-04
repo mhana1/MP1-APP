@@ -33,11 +33,11 @@ $result = $rds->describeDBInstances([
 ]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "============\n". $endpoint . "================\n";
+print "============". $endpoint . "================\n";
 
-$link = mysqli_connect($endpoint,"controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","users") or die("Error " . mysqli_error($link)); 
 echo "Here is the result: " . $link;
-$sql = "CREATE TABLE data 
+$sql = "CREATE TABLE Users 
 (
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(20),
@@ -51,4 +51,6 @@ date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
 $con->query($sql);
+
+shell-exec("chmod 600 setup.php");
 ?>
