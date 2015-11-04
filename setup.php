@@ -8,21 +8,8 @@ $rds = new Aws\Rds\RdsClient([
 ]);
 
 #create db instance if not exist
-mapfile -t dbInstanceARR < <(aws rds describe-db-instances --output json | grep "\"DBInstanceIdentifier" | sed "s/[\"\:\, ]//g" | sed "s/DBInstanceIdentifier//g" )
 
-if [ ${#dbInstanceARR[@]} -gt 0 ]
-   then
-   LENGTH=${#dbInstanceARR[@]}
-
-       for (( i=0; i<${LENGTH}; i++));
-       do
-        if [ ${dbInstanceARR[i]} == "mh-db"]
-        then
-         echo "Database already exists"
-        else
-        echo "creating new database"
-
-result = $rds->createDBInstance([
+$result = $rds->createDBInstance([
     'AllocatedStorage' => 10,
     'DBInstanceClass' => 'db.t1.micro',
     'DBInstanceIdentifier' => 'mh-db',
@@ -34,9 +21,6 @@ result = $rds->createDBInstance([
     'PubliclyAccessible' => true,
 ]);
 
-        fi
-   done
-fi
 
 print "Create RDS DB results: \n";
 # print_r($rds);
