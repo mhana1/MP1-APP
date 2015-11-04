@@ -51,7 +51,7 @@ $rds = new Aws\Rds\RdsClient([
     'region'  => 'us-east-1'
 ]);
 $result = $rds->describeDBInstances([
-    'DBInstanceIdentifier' => 'db-mh'
+    'DBInstanceIdentifier' => 'mh-db'
 ]);
 
 $endpoint = $result['DBInstances']['Endpoint']['Address'];
