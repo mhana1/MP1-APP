@@ -7,19 +7,6 @@ $rds = new Aws\Rds\RdsClient([
     'region'  => 'us-east-1'
 ]);
 
-#create db instance if not exist
-
-$result = $rds->createDBInstance([
-    'AllocatedStorage' => 10,
-    'DBInstanceClass' => 'db.t1.micro',
-    'DBInstanceIdentifier' => 'mh-db',
-    'DBName' => 'users',
-    'Engine' => 'MySQL',
-    'EngineVersion' => '5.5.41',
-    'MasterUserPassword' => 'letmein888',
-    'MasterUsername' => 'controller',
-    'PubliclyAccessible' => true,
-]);
 
 
 print "Create RDS DB results: \n";
@@ -27,6 +14,8 @@ print "Create RDS DB results: \n";
 
 $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',
 ]);
+
+
 // Create a table 
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db',
@@ -35,7 +24,7 @@ $result = $rds->describeDBInstances([
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============". $endpoint . "================\n";
 
-$link = mysqli_connect($endpoint,"controller","letmein888","users") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
 echo "Here is the result: " . $link;
 $sql = "CREATE TABLE Users 
 (
