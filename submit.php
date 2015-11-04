@@ -33,12 +33,12 @@ $result = $s3->createBucket([
 ]);
 
 //wait until bucket exists
-$client->waitUntilBucketExists([
+$s3->waitUntil('BucketExists',[
 	'Bucket' => $bucket
 ]);
 
 //uploading a file
-$result = $client->putObject([
+$result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
    'Key' => $uploadfile
@@ -54,7 +54,7 @@ $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db'
 ]);
 
-$endpoint = $result['DBInstances']['Endpoint']['Address'];
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
     echo "============". $endpoint . "================";
 	
 //echo "begin database";
