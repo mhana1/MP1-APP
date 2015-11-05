@@ -50,7 +50,7 @@ $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db',
 ]);
 
-echo $result['DBInstances'][0]['DBInstanceStatus'];
+//echo $result['DBInstances'][0]['DBInstanceStatus'];
 if ($result['DBInstances'][0]['DBInstanceStatus'] != "available"){
 echo '<div class="jumbotron">';
     echo ' <h2> Wait till the Database is created... </h2></div>';
