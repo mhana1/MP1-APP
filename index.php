@@ -42,21 +42,25 @@ function is_empty($value){
     
         <?php
         require 'vendor/autoload.php';
-	$rds = new Aws\Rds\RdsClient([
+        $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
 ]);
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db',
 ]);
-while ($result['DBInstances'][0]['DBInstanceStatus'] != "available"){
+
+echo $result['DBInstances'][0]['DBInstanceStatus'];
+if ($result['DBInstances'][0]['DBInstanceStatus'] != "available"){
 echo '<div class="jumbotron">';
     echo ' <h2> Wait till the Database is created... </h2></div>';
-        
-}
-?>
 
-// Start the session 
+}
+
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+
+?>
+ 
 
 	
 <form enctype="multipart/form-data" action="submit.php" method="POST">    
