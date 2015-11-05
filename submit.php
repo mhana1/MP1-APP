@@ -63,6 +63,7 @@ if (!($stmt = $link->prepare("INSERT INTO users (uname, email,phone,s3url,fs3url
 }
 $uname = $_POST['uname'];
 $email = $_POST['email'];
+$_SESSION["email"] = $email;
 $phone = $_POST['phone'];
 $s3url = $url; //  $result['ObjectURL']; from above
 $filename = basename($_FILES['file']['name']);
