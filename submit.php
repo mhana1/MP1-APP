@@ -68,7 +68,7 @@ $filename = basename($_FILES['file']['name']);
 $fs3url = "none";
 $status =0;
 $date = date("d M Y - h:i:s A");
-$stmt->bind_param("ssssssis",$uname,$email,$phone,$filename,$s3url,$fs3url,$status,$date);
+$stmt->bind_param("ssssssis",$uname,$email,$phone,$s3url,$fs3url,$filename,$status,$date);
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 }
