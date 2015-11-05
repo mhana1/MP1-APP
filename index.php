@@ -77,14 +77,13 @@ $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-d
 	<button type="submit" class="btn btn-default">Send File</button>
 	<input type="hidden" name="submit"/>
 </form>
-<hr />
+
 
 <form enctype="multipart/form-data" action="gallery.php" method="POST">
     
 Enter Email of user for gallery to browse: <input type="email" name="email">
 <input type="submit" value="Load Gallery" />
 </form>
-
 
 
 </div>
