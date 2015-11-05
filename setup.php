@@ -17,8 +17,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============". $endpoint . "================\n";
 $link = mysqli_connect($endpoint,"controller","letmein888","mhana1DB",3306) or die("Error " . mysqli_error($link)); 
 echo "Here is the result: " . $link;
-$sql = "CREATE TABLE users 
-(
+$sql = "CREATE TABLE users IF NOT EXISTS(
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(20),
 email VARCHAR(20),
