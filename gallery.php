@@ -1,6 +1,12 @@
 <?php
 session_start();
+
+$found = false;
 $email = $_POST["email"];
+if (empty($_POST["email"])){
+    $email = $_SESSION["email"];
+}
+
 //echo $email;
 require 'vendor/autoload.php';
 
@@ -58,19 +64,24 @@ $link->real_query($sql);
     </div>
 
     <div class="jumbotron">
-        <h2>All Images for</h2>
-        <p class="lead"><?php $email ?></p>
+
+        <h1>Gallery of Images</h1>
+        <h2>For user with email:</h2>
+        <p class="lead"><?php echo $email; ?></p>
     </div>
-        <?php 
+        <?php
+        
         if ($result = $link->use_result()) {
             while ($row = $result->fetch_assoc()) {
-               echo "<img src =\" " . $row['s3url'] . "\" height='42' width='42' /><img src =\"" .$row['fs3url'] . "\"/>";
+                $found = true;
+                echo "<img src =\" " . $row['s3url'] . "\" height='42' width='42' /><img src =\"" .$row['fs3url'] . "\"/>";
             }
             $result->close();
         }
-        else {
-            echo "No Images are found";
+        if ($found ==false){
+            echo "<font color='red'><h2 align='center'><b>No records for this email!</h1>";
         }
+
         ?>
 </div>
 
