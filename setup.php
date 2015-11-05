@@ -7,8 +7,8 @@ $rds = new Aws\Rds\RdsClient([
     'region'  => 'us-east-1'
 ]);
 
-//$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',
-//]);
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',
+]);
 // Create a table 
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db',
