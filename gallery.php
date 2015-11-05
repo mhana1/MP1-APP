@@ -64,12 +64,12 @@ $link->real_query($sql);
         <?php 
         if ($result = $link->use_result()) {
             while ($row = $result->fetch_assoc()) {
-               echo "<img src =\" " . $row['s3url'] . "\" height="42" width="42" /><img src =\"" .$row['fs3url'] . "\"/>";
+               echo "<img src =\" " . $row['s3url'] . "\" height='42' width='42' /><img src =\"" .$row['fs3url'] . "\"/>";
             }
             $result->close();
         }
         else {
-            No Images are found
+            echo "No Images are found";
         }
         ?>
 </div>
