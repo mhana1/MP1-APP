@@ -34,7 +34,7 @@ $link->real_query("SELECT * FROM users WHERE email = '$email'");
 
 $res = $link->use_result();
 echo "Result set order...\n";
-}
+
 $link->close();
 ?>
 <!DOCTYPE html>
@@ -65,7 +65,7 @@ $link->close();
     <div class="header clearfix">
         <nav>
             <ul class="nav nav-pills pull-right">
-                <li role="presentation" ><a href="#">Home</a></li>
+                <li role="presentation" ><a href="index.php">Home</a></li>
             </ul>
         </nav>
     </div>
@@ -76,11 +76,9 @@ $link->close();
         <h3> by <?php echo $author?> </h3>
         <p class="lead"><?php while ($row = $res->fetch_assoc()) {
     echo "<img src =\" " . $row['s3url'] . "\" /><img src =\"" .$row['fs3url'] . "\"/>";
-echo $row['id'] . "Email: " . $row['email'];
+echo $row['id'] . "Email: " . $row['email'];}
 ?></p>
     </div>
-    <a class="btn btn-lg btn-success" href="../edit.php/?id=<?php echo $a->getId(); ?>" role="button">Edit</a>
-
 
 
 </div>
