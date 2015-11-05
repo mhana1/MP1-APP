@@ -1,4 +1,5 @@
 <?php
+
 $value = $uname  = $email = $phone = $file = "";
 function is_empty($value){
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -35,6 +36,29 @@ function is_empty($value){
 		  </ul>
 	  </nav>
 	</div>
+	
+<div class="container">
+    
+    
+        <?php
+        require 'vendor/autoload.php';
+	$rds = new Aws\Rds\RdsClient([
+    'version' => 'latest',
+    'region'  => 'us-east-1'
+]);
+$result = $rds->describeDBInstances([
+    'DBInstanceIdentifier' => 'mh-db',
+]);
+while ($result['DBInstances'][0]['DBInstanceStatus'] != "available"){
+echo '<div class="jumbotron">';
+    echo ' <h2> Wait till the Database is created... </h2></div>';
+        
+}
+
+
+// Start the session 
+
+	
 <form enctype="multipart/form-data" action="submit.php" method="POST">    
     
 	<label >User Name:</label>
