@@ -54,7 +54,7 @@ echo '<div class="jumbotron">';
     echo ' <h2> Wait till the Database is created... </h2></div>';
         
 }
-
+?>
 
 // Start the session 
 
