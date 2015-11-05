@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/jumbotron-narrow.css" rel="stylesheet">
-</head>
-
-<body>
-<div class="container">
-    
-    <div class="jumbotron">
-        <h2> Wait till the Database is created... </h2>
-    </div>
-
-</div>
-</body>
 
 <?php
 // Start the session 
@@ -29,8 +7,8 @@ $rds = new Aws\Rds\RdsClient([
     'region'  => 'us-east-1'
 ]);
 
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',
-]);
+//$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',
+//]);
 // Create a table 
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db',
