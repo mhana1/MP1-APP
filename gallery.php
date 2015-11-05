@@ -1,25 +1,22 @@
 <?php
 session_start();
 $email = $_POST["email"];
-echo $email;
+//echo $email;
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient;
-$client = RdsClient::factory(array(
-'region'  => 'us-east-1'
-));
+$client = new Aws\Rds\RdsClient([
+    'version' => 'latest',
+    'region'  => 'us-east-1'
+]);
+
 
 $result = $client->describeDBInstances(array(
     'DBInstanceIdentifier' => 'mh-db',
 ));
 
-$endpoint = "";
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+//    echo "============". $endpoint . "================";
 
-foreach ($result->getPath('DBInstances/*/Endpoint/Address') as $ep) {
-    // Do something with the message
-    echo "============". $ep . "================";
-    $endpoint = $ep;
-}   
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","mhana1DB") or die("Error " . mysqli_error($link));
 
@@ -33,7 +30,7 @@ if (mysqli_connect_errno()) {
 $link->real_query("SELECT * FROM users WHERE email = '$email'");
 
 $res = $link->use_result();
-echo "Result set order...\n";
+//echo "Result set order...\n";
 
 $link->close();
 ?>
@@ -48,17 +45,7 @@ $link->close();
 
     <!-- Custom styles for this template -->
     <link href="../css/jumbotron-narrow.css" rel="stylesheet">
-	<style>
-		#delete{
-			float:right;
-			
-		}
-		h3{
-			font-style: italic;
-		}
-	
-	</style>
-	</head>
+</head>
 
 <body>
 <div class="container">
@@ -70,10 +57,8 @@ $link->close();
         </nav>
     </div>
 
-    <a id="delete" class="btn btn-danger" href="../delete.php/?id=<?php echo $a->getId(); ?>" role="button">Delete</a>
     <div class="jumbotron">
-        <h2> <?php echo $subject?> </h2>
-        <h3> by <?php echo $author?> </h3>
+        <h2> Images </h2>
         <p class="lead"><?php while ($row = $res->fetch_assoc()) {
     echo "<img src =\" " . $row['s3url'] . "\" /><img src =\"" .$row['fs3url'] . "\"/>";
 echo $row['id'] . "Email: " . $row['email'];}
