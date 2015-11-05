@@ -4,15 +4,15 @@ $email = $_POST["email"];
 //echo $email;
 require 'vendor/autoload.php';
 
-$client = new Aws\Rds\RdsClient([
+$rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
 ]);
 
 
-$result = $client->describeDBInstances(array(
+$result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db',
-));
+]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 //    echo "============". $endpoint . "================";
@@ -26,13 +26,13 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
+$sql = "SELECT * FROM users WHERE email = '$email'";
 //below line is unsafe - $email is not checked for SQL injection -- don't do this in real life or use an ORM instead
-$link->real_query("SELECT * FROM users WHERE email = '$email'");
+$link->real_query($sql);
 
-$res = $link->use_result();
+//$res = $link->use_result();
 //echo "Result set order...\n";
 
-$link->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,15 +58,21 @@ $link->close();
     </div>
 
     <div class="jumbotron">
-        <h2> Images </h2>
-        <p class="lead"><?php while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['s3url'] . "\" /><img src =\"" .$row['fs3url'] . "\"/>";
-echo $row['id'] . "Email: " . $row['email'];}
-?></p>
+        <h2>All Images for</h2>
+        <p class="lead"><?php $email ?></p>
     </div>
-
-
+        <?php 
+        if ($result = $link->use_result()) {
+            while ($row = $result->fetch_assoc()) {
+               echo "<img src =\" " . $row['s3url'] . "\" height="42" width="42" /><img src =\"" .$row['fs3url'] . "\"/>";
+            }
+            $result->close();
+        }
+        else {
+            No Images are found
+        }
+        ?>
 </div>
-</body>
 
+</body>
 </html>
