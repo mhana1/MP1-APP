@@ -16,6 +16,15 @@
     
     <div class="jumbotron">
         <h2> Wait till the Database is created... </h2>
+        <?php
+            require 'vendor/autoload.php';
+            $rds = new Aws\Rds\RdsClient([
+                'version' => 'latest',
+                'region'  => 'us-east-1'
+            ]);
+            $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+            header("Location: index.php");
+            ?>
     </div>
 
 </div>
