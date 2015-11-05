@@ -15,9 +15,9 @@ $result = $rds->describeDBInstances([
 ]);
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============". $endpoint . "================\n";
-$link = mysqli_connect($endpoint,"controller","letmein888","mhana1DB",3306) or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","mhana1DB") or die("Error " . mysqli_error($link)); 
 echo "Here is the result: " . $link;
-$sql = "CREATE TABLE users IF NOT EXISTS(
+$sql = "CREATE TABLE users(
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(20),
 email VARCHAR(20),
@@ -28,6 +28,5 @@ filename VARCHAR(256),
 state TINYINT(3),
 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
-$con->query($sql);
-shell-exec("chmod 600 setup.php");
+$link->query($sql);
 ?>
