@@ -1,14 +1,13 @@
 <?php
-$error = array("","","");
-$error[0] = $_POST['uname'];
-$error[1] = $_POST['email'];
-$error[2] = $_POST['phone'];
-foreach ($error as $i => $value) {
-	if (trim($erroe[$i]) == ""){
-		header("Location: index.php?error=".$error)
-	}
-	
+error ="";
+$uname = $_POST['uname'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+if(empty($uname) || empty($email) || empty($phone)){
+        $error = "missing fields";
+        header("Location: index.php?error=".$error);
 }
+
 else{
 date_default_timezone_set('America/Chicago');
 // Start the session
