@@ -81,7 +81,7 @@ $link->real_query($sql);
         if ($found ==false){
             echo "<font color='red'><h2 align='center'><b>No records for this email!</h1>";
         }
-
+        session_destroy();
         ?>
 </div>
 
