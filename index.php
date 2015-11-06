@@ -2,20 +2,8 @@
 $uname = $email = $phone = $file ="";
 $error = $_GET['error'];
 
-function is_empty($value){
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		if(empty($value)){
-			print "<font color='red' size='2'>  * required field </font>";
-			return true;
-		}
-	}
-	else{
-		return false;
-	}					
-}
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -44,8 +32,8 @@ function is_empty($value){
     
     
         <?php
-        foreach ($error as $i => $value) {
-        	print "<font color='red' size='2'> *".$error[$i]." is required </font><br>";
+        if(isset($_GET['error'])){
+        print "<font color='red' size='2'>All fields are required </font><br><br>";
         }
         require 'vendor/autoload.php';
         $rds = new Aws\Rds\RdsClient([
@@ -69,14 +57,14 @@ $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-d
 <form enctype="multipart/form-data" action="submit.php" method="POST">    
     
 	<label >User Name:</label>
-	<input class="form-control" type="text" name="uname" value="<?php echo isset($_POST['uname']) ? $_POST['uname'] : '' ?>"></input><?php is_empty($uname);?><br><br>
+	<input class="form-control" type="text" name="uname" value="<?php echo isset($_POST['uname']) ? $_POST['uname'] : '' ?>"></input><br><br>
 	<label >Email Address:</label>
-	<input class="form-control" type="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>"></input><?php is_empty($email);?><br><br>
+	<input class="form-control" type="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>"></input><br><br>
 	<label >Phone (1-XXX-XXX-XXXX):</label>
-	<input class="form-control" type="phone" name="phone" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : '' ?>"></input><?php is_empty($phone);?><br><br>
+	<input class="form-control" type="phone" name="phone" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : '' ?>"></input><br><br>
 	<label >File to send:</label>
 	<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-	<input  type="file" name="file" value="<?php echo isset($_POST['file']) ? $_POST['file'] : '' ?>"></input><?php is_empty($file);?><br><br>
+	<input  type="file" name="file" value="<?php echo isset($_POST['file']) ? $_POST['file'] : '' ?>"></input><br><br>
 	<button type="submit" class="btn btn-default">Send File</button>
 	<input type="hidden" name="submit"/>
 </form>
