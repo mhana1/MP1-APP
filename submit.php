@@ -1,12 +1,27 @@
 <?php
-error ="";
+$error ="";
 $uname = $_POST['uname'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
+$allowed =  array('gif','png' ,'jpg');
+$filename = $_FILES['file']['name'];
+$ext = pathinfo($filename, PATHINFO_EXTENSION);
+function in_arrayi($needle, $haystack)
+{
+        return in_array(strtolower($needle), array_map('strtolower', $haystack));
+}
+
 if(empty($uname) || empty($email) || empty($phone)){
         $error = "missing fields";
         header("Location: index.php?error=".$error);
 }
+
+elseif (!in_arrayi($ext,$allowed)){
+        $error = "wrong format";
+        header("Location: index.php?error=".$error);
+
+}
+
 
 else{
 date_default_timezone_set('America/Chicago');
