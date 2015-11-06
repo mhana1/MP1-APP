@@ -66,15 +66,16 @@ $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-d
 	<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
 	<input  type="file" name="file" value="<?php echo isset($_POST['file']) ? $_POST['file'] : '' ?>"></input><br><br>
 	<button type="submit" class="btn btn-default">Send File</button>
-	<input type="hidden" name="submit"/>
+	<input type="hidden" name="submit"/><br><br><br><br>
 </form>
 
+<footer class='footer'>
 <form enctype="multipart/form-data" action="gallery.php" method="POST">
     
 Enter Email of user for gallery to browse: <input type="email" name="email">
 <input type="submit" value="Load Gallery" />
 </form>
-
+</footer>
 
 </div>
 </body>
