@@ -1,13 +1,7 @@
 <?php
 $uname = $email = $phone = $file ="";
+$error = $_GET['error'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-	$uname = $_POST['uname'];
-	$email = $_POST['email'];
-	$phone = $_POST['phone'];
-	$file = $_FILES['file']['name'];
-}
-//$uname  = $email = $phone = $file = "";
 function is_empty($value){
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(empty($value)){
@@ -50,6 +44,9 @@ function is_empty($value){
     
     
         <?php
+        foreach ($error as $i => $value) {
+        	print "<font color='red' size='2'> *".$error[$i]." is required </font><br>";
+        }
         require 'vendor/autoload.php';
         $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
@@ -69,13 +66,7 @@ echo '<div class="jumbotron">';
 $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
 
  
-
-if(empty($uname) || empty($email) || empty($password) || empty($file))
-{
-    echo "You did not fill out the required fields.";
-    
-    ?>
-<form enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">    
+<form enctype="multipart/form-data" action="submit.php" method="POST">    
     
 	<label >User Name:</label>
 	<input class="form-control" type="text" name="uname" value="<?php echo isset($_POST['uname']) ? $_POST['uname'] : '' ?>"></input><?php is_empty($uname);?><br><br>
@@ -89,12 +80,6 @@ if(empty($uname) || empty($email) || empty($password) || empty($file))
 	<button type="submit" class="btn btn-default">Send File</button>
 	<input type="hidden" name="submit"/>
 </form>
-<?php
-}
-else{
-	header("Location:submit.php");
-}
-?>
 
 <form enctype="multipart/form-data" action="gallery.php" method="POST">
     
