@@ -33,7 +33,7 @@ $error = $_GET['error'];
     
         <?php
         if(isset($_GET['error'])){
-        print "<font color='red' size='2'>All fields are required </font><br><br>";
+        print "<font color='red' size='2'>".$error."</font><br><br>";
         }
         require 'vendor/autoload.php';
         $rds = new Aws\Rds\RdsClient([
