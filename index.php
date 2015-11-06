@@ -1,6 +1,11 @@
 <?php
+$uname = $email = $phone = $file ="";
+$uname = $_POST['uname'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+$file = $_FILES['file']['name'];
 
-$value = $uname  = $email = $phone = $file = "";
+//$uname  = $email = $phone = $file = "";
 function is_empty($value){
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(empty($value)){
@@ -12,6 +17,8 @@ function is_empty($value){
 		return false;
 	}					
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -59,10 +66,13 @@ echo '<div class="jumbotron">';
 
 $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
 
-?>
  
 
-	
+if(empty($uname) || empty($email) || empty($password) || empty($file))
+{
+    echo "You did not fill out the required fields.";
+    
+    ?>
 <form enctype="multipart/form-data" action="submit.php" method="POST">    
     
 	<label >User Name:</label>
@@ -77,7 +87,12 @@ $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-d
 	<button type="submit" class="btn btn-default">Send File</button>
 	<input type="hidden" name="submit"/>
 </form>
-
+<?php
+}
+else{
+	header("Location:submit.php");
+}
+?>
 
 <form enctype="multipart/form-data" action="gallery.php" method="POST">
     
