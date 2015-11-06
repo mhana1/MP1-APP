@@ -73,7 +73,7 @@ if(empty($uname) || empty($email) || empty($password) || empty($file))
     echo "You did not fill out the required fields.";
     
     ?>
-<form enctype="multipart/form-data" action="submit.php" method="POST">    
+<form enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">    
     
 	<label >User Name:</label>
 	<input class="form-control" type="text" name="uname" value="<?php echo isset($_POST['uname']) ? $_POST['uname'] : '' ?>"></input><?php is_empty($uname);?><br><br>
