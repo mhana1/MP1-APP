@@ -1,10 +1,12 @@
 <?php
 $uname = $email = $phone = $file ="";
-$uname = $_POST['uname'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
-$file = $_FILES['file']['name'];
 
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+	$uname = $_POST['uname'];
+	$email = $_POST['email'];
+	$phone = $_POST['phone'];
+	$file = $_FILES['file']['name'];
+}
 //$uname  = $email = $phone = $file = "";
 function is_empty($value){
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
