@@ -12,12 +12,12 @@ function in_arrayi($needle, $haystack)
 }
 
 if(empty($uname) || empty($email) || empty($phone)){
-        $error = "missing fields";
+        $error = "Field(s) are missing";
         header("Location: index.php?error=".$error);
 }
 
 elseif (!in_arrayi($ext,$allowed)){
-        $error = "wrong format";
+        $error = "Image is in wrong format";
         header("Location: index.php?error=".$error);
 
 }
