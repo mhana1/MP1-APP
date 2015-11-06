@@ -1,4 +1,15 @@
 <?php
+$error = array("","","");
+$error[0] = $_POST['uname'];
+$error[1] = $_POST['email'];
+$error[2] = $_POST['phone'];
+foreach ($error as $i => $value) {
+	if (trim($erroe[$i]) == ""){
+		header("Location: index.php?error=".$error)
+	}
+	
+}
+else{
 date_default_timezone_set('America/Chicago');
 // Start the session
 session_start();
@@ -85,6 +96,7 @@ while ($row = $res->fetch_assoc()) {
 }
 $link->close();
 header("Location: gallery.php");
+}
 //add code to detect if subscribed to SNS topic 
 //if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
 // add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
