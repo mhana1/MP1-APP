@@ -19,9 +19,9 @@ $link = mysqli_connect($endpoint,"controller","letmein888","mhana1DB") or die("E
 
 $sql = "CREATE TABLE users(
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-uname VARCHAR(20),
-email VARCHAR(20),
-phone VARCHAR(20),
+uname VARCHAR(50),
+email VARCHAR(50),
+phone VARCHAR(50),
 s3url VARCHAR(256),
 fs3url VARCHAR(256),
 filename VARCHAR(256),
