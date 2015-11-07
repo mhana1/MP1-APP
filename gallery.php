@@ -73,7 +73,7 @@ $link->real_query($sql);
         if ($result = $link->use_result()) {
             while ($row = $result->fetch_assoc()) {
                 $found = true;
-                echo "<img src =\" " . $row['s3url'] . "\" height='200' width='200' /><img src =\"" .$row['fs3url'] . "\"/>";
+                echo "<img src =\" " . $row['s3url'] . "\" height='200' width='200' />";
             }
             $result->close();
         }
