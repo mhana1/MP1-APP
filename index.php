@@ -1,7 +1,8 @@
 <?php
 $uname = $email = $phone = $file ="";
-$error = $_GET['error'];
-
+if(isset($_GET['error'])){
+	$error = $_GET['error'];
+}
 ?>
 
 
@@ -34,7 +35,7 @@ $error = $_GET['error'];
         <?php
         if(isset($_GET['error'])){
         print "<font color='red' size='2'>".$error."</font><br><br>";
-        }
+        }/**
         require 'vendor/autoload.php';
         $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
@@ -51,7 +52,7 @@ echo '<div class="jumbotron">';
 
 }
 
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);*/
 
  ?>
 <form enctype="multipart/form-data" action="submit.php" method="POST">    
