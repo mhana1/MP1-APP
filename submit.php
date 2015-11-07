@@ -26,6 +26,7 @@ elseif (!in_arrayi($ext,$allowed)){
 else{
 date_default_timezone_set('America/Chicago');
 // Start the session
+setcookie("email",$email);
 session_start();
 echo $_POST['email'];
 $uploaddir = '/tmp/';
