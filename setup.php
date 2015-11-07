@@ -1,7 +1,3 @@
-
-<?php
-// Start the session 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +13,8 @@
 
 <body>
 <div class="container">
-
+	
+<?php
 require 'vendor/autoload.php'; 
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
@@ -35,7 +32,7 @@ echo '<div class="jumbotron">';
 
 }
 
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+$rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
