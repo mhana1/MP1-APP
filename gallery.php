@@ -7,7 +7,6 @@ if (empty($_POST["email"])){
     $email = $_SESSION["email"];
 }
 
-echo $email;
 require 'vendor/autoload.php';
 
 $rds = new Aws\Rds\RdsClient([
