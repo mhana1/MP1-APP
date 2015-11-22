@@ -30,5 +30,22 @@ date VARCHAR(256)
 )";
 $link->query($sql);
 
+$sns = new Aws\Sns\SnsClient([
+'version' => 'latest',
+'region' => 'us-east-1'
+]);
+
+$result = $sns->createTopic([
+'Name' => 'SNS-MP2',
+]);
+
+#echo $result;
+
+$topicAttributes = $sns->setTopicAttributes([
+'AttributeName'=>'DisplayName',
+'AttributeValue'=>'MP2-SNS-Display',
+'TopicArn'=>$result['TopicArn']
+]);
+
 header("Location: index.php");
 ?>
