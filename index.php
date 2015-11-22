@@ -52,7 +52,7 @@ echo '<div class="jumbotron">';
 
 }
 
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+#$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
 
  ?>
 <form enctype="multipart/form-data" action="submit.php" method="POST">    
