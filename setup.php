@@ -10,7 +10,7 @@ $result = $rds->describeDBInstances([
 ]);
 
 
-$rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+#$rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
