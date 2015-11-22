@@ -3,6 +3,9 @@ $error ="";
 $uname = $_POST['uname'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
+$subscribed = $_POST['subscribed'];
+echo $subscribed;
+$subscr = 0;
 $allowed =  array('gif','png' ,'jpg');
 $filename = $_FILES['file']['name'];
 $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -83,9 +86,10 @@ if (mysqli_connect_errno()) {
     exit();
 }
 /* Prepared statement, stage 1: prepare */
-if (!($stmt = $link->prepare("INSERT INTO users (uname, email,phone,s3url,fs3url,filename,state,date) VALUES (?,?,?,?,?,?,?,?)"))) {
+if (!($stmt = $link->prepare("INSERT INTO users (uname, email,phone,s3url,fs3url,filename,state,date,subscribed) VALUES (?,?,?,?,?,?,?,?,?)"))) {
     echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
+
 $uname = $_POST['uname'];
 $email = $_POST['email'];
 $_SESSION["email"] = $email;
@@ -95,7 +99,27 @@ $filename = basename($_FILES['file']['name']);
 $fs3url = "none";
 $status =0;
 $date = date("d M Y - h:i:s A");
-$stmt->bind_param("ssssssis",$uname,$email,$phone,$s3url,$fs3url,$filename,$status,$date);
+$sns = new Aws\Sns\SnsClient([
+'version' => 'latest',
+'region' => 'us-east-1'
+]);
+
+if($subscribed == "option1" || $subscribed == "option2"){
+        $subscr = 1;
+
+if ($subscribed == "option1"){
+
+$result = $sns->subscribe([
+        'Endpoint'=> $phone,
+        'Protocol'=> 'sms',
+        'TopicArn'=> 'arn:aws:sns:us-east-1:699519219805:SNS-MP2'
+  ]);
+}
+
+}
+
+$stmt->bind_param("ssssssisi",$uname,$email,$phone,$s3url,$fs3url,$filename,$status,$date,$subscr);
+
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 }
@@ -108,11 +132,15 @@ echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
     echo $row['id'] . " " . $row['uname'] . " " . $row['email']. " " . $row['phone'];
 }
+$response = $sns->publish([
+    'TopicArn'=>'arn:aws:sns:us-east-1:699519219805:SNS-MP2',
+    'Messgae'=>'Hi, has added an Image to the gallery'
+
+]);
+
+
 $link->close();
 header("Location: gallery.php");
 }
-//add code to detect if subscribed to SNS topic 
-//if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
-// add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
-//  Add code to update database to UPDATE status column to 1 (in progress)
+
 ?>
