@@ -66,6 +66,17 @@ $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-d
 	<label >File to send:</label>
 	<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
 	<input  type="file" name="file" value="<?php echo isset($_POST['file']) ? $_POST['file'] : '' ?>"></input><br><br>
+	<label>Subscribe to receive text messgaes</label><br>
+<label class="radio-inline">
+  <input type="radio" name="subscribed" value="option1"> Subscribe
+</label>
+<label class="radio-inline">
+  <input type="radio" name="subscribed"  value="option2"> Already subscribed
+</label>
+<label class="radio-inline">
+  <input type="radio" name="subscribed" value="option3"> Don't subscribe
+</label><br><br><br>
+
 	<button type="submit" class="btn btn-default">Send File</button>
 	<input type="hidden" name="submit"/><br><br><br><br>
 </form>
