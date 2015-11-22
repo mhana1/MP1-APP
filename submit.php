@@ -134,7 +134,7 @@ while ($row = $res->fetch_assoc()) {
 }
 $response = $sns->publish([
     'TopicArn'=>'arn:aws:sns:us-east-1:699519219805:SNS-MP2',
-    'Messgae'=>'Hi, has added an Image to the gallery'
+    'Message'=>'Hi, an Image has been added to the gallery'
 
 ]);
 
