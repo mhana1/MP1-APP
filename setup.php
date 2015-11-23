@@ -26,6 +26,7 @@ s3url VARCHAR(256),
 fs3url VARCHAR(256),
 filename VARCHAR(256),
 state TINYINT(3),
+subscribed TINYINT(2),
 date VARCHAR(256)
 )";
 $link->query($sql);
