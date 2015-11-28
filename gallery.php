@@ -5,7 +5,12 @@ $found = false;
 $email = $_POST["email"];
 if (empty($_POST["email"])){
     $email = $_SESSION["email"];
+    if(!empty($email)){
+        $found = true;
 }
+}
+else $found = true;
+
 
 require 'vendor/autoload.php';
 
@@ -31,7 +36,12 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-$sql = "SELECT * FROM users WHERE email = '$email'";
+if($found != true){
+        $sql = "SELECT * FROM users";
+}
+else{
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+}
 //below line is unsafe - $email is not checked for SQL injection -- don't do this in real life or use an ORM instead
 $link->real_query($sql);
 
@@ -72,14 +82,17 @@ $link->real_query($sql);
         
         if ($result = $link->use_result()) {
             while ($row = $result->fetch_assoc()) {
-                $found = true;
-                 echo "<img src =\" " . $row['s3url'] . "\" /><img src=\"".$row['fs3url']."\"/>";
+                if($found != false){
+                echo "<img src =\" " . $row['s3url'] . "\" /><img src=\"".$row['fs3url']."\"/>";
             }
-            $result->close();
-        }
+
         if ($found ==false){
-            echo "<font color='red'><h2 align='center'><b>No records for this email!</h1>";
+         echo "<img src =\" " . $row['s3url'] . "\" />";
         }
+}}
+
+            $result->close();
+       
         session_destroy();
         ?>
 </div>
