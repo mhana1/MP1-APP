@@ -45,6 +45,32 @@ print "</pre>";
 require 'vendor/autoload.php';
 #use Aws\S3\S3Client;
 #$client = S3Client::factory();
+
+$image = @file_get_contents($uploadfile);
+echo "got image contents";
+if($image) {
+    $im = new Imagick();
+    echo $im;
+    $im->readImageBlob($image);
+    $im->setImageFormat("png24");
+    $geo=$im->getImageGeometry();
+    $width=$geo['width'];
+    $height=$geo['height'];
+        echo $height. $width;
+    if($width > $height)
+    {
+        $scale = ($width > 200) ? 200/$width : 1;
+    }
+    else
+    {
+        $scale = ($height > 200) ? 200/$height : 1;
+    }
+    $newWidth = $scale*$width;
+    $newHeight = $scale*$height;
+ echo $newWidth.$newHeight;
+    $im->setImageCompressionQuality(85);
+    $im->resizeImage($newWidth,$newHeight,Imagick::FILTER_LANCZOS,1.1);
+}
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -68,6 +94,34 @@ $result = $s3->putObject([
 ]);  
 $url = $result['ObjectURL'];
 echo $url;
+
+unlink($uploadfile);
+$im->writeImage($uploadfile);
+
+$bucket2 = uniqid("thumb-mh-",false);
+//createing a bucket
+$result2 = $s3->createBucket([
+    'ACL' => 'public-read',
+    'Bucket' => $bucket2
+]);
+//wait until bucket exists
+$s3->waitUntil('BucketExists',[
+        'Bucket' => $bucket2
+]);
+//uploading a file
+$result2 = $s3->putObject([
+    'ACL' => 'public-read',
+    'Bucket' => $bucket2,
+   'Key' => $bucket2,
+   'SourceFile' => $uploadfile
+]);
+$fUrl = $result2['ObjectURL'];
+echo $fUrl;
+
+
+
+
+
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -96,7 +150,7 @@ $_SESSION["email"] = $email;
 $phone = $_POST['phone'];
 $s3url = $url; //  $result['ObjectURL']; from above
 $filename = basename($_FILES['file']['name']);
-$fs3url = "none";
+$fs3url = $fUrl;
 $status =0;
 $date = date("d M Y - h:i:s A");
 $sns = new Aws\Sns\SnsClient([
