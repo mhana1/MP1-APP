@@ -49,10 +49,12 @@ $result = $rds->describeDBInstances([
 if ($result['DBInstances'][0]['DBInstanceStatus'] != "available"){
 echo '<div class="jumbotron">';
     echo ' <h2> Wait till the Database is created... </h2></div>';
+echo "<a href='index.php'  type='button' class='btn btn-default'>Refresh</a>";
 
 }
 
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+#$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+else{
 
  ?>
 <form enctype="multipart/form-data" action="submit.php" method="POST">    
@@ -88,7 +90,7 @@ Enter Email of user for gallery to browse: <input type="email" name="email">
 <input type="submit" value="Load Gallery" />
 </form>
 </footer>
-
+<?php } ?>
 </div>
 </body>
 </html>
