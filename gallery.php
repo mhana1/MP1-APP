@@ -83,11 +83,11 @@ $link->real_query($sql);
         if ($result = $link->use_result()) {
             while ($row = $result->fetch_assoc()) {
                 if($found != false){
-                echo "<img src =\" " . $row['s3url'] . "\" /><img src=\"".$row['fs3url']."\"/>";
+                echo "<img src =\" " . $row['s3url'] . "\"  height='400' width='400'/><img src=\"".$row['fs3url']."\"/>";
             }
 
         if ($found ==false){
-         echo "<img src =\" " . $row['s3url'] . "\" />";
+         echo "<img src =\" " . $row['s3url'] . "\" height='400' width='400'/>";
         }
 }}
 
