@@ -93,7 +93,7 @@ $result = $s3->putBucketLifecycleConfiguration(array(
         'Rules' => array(
                         array(
                                 'Expiration' => array('Days' => 1),
-                                'Prefix' => $bucket,
+                                'Prefix' => "",
                                 'Status' => 'Enabled'
                         )
         ))
@@ -131,7 +131,7 @@ $result2 = $s3->putBucketLifecycleConfiguration(array(
         'Rules' => array(
                         array(
                                 'Expiration' => array('Days' => 1),
-                                'Prefix' => $bucket2,
+                                'Prefix' => "",
                                 'Status' => 'Enabled'
                         )
         ))
