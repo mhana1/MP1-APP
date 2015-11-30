@@ -80,16 +80,23 @@ $link->real_query($sql);
     </div>
         <?php
         
-        if ($result = $link->use_result()) {
-            while ($row = $result->fetch_assoc()) {
+ if ($result = $link->use_result()) {
+    $row = $result->fetch_assoc() ;
+        if(empty($row)){
+                echo "<font color='red'><h3><b>No records found for this user</h3>";
+        }
+        while ($row) {
                 if($found != false){
                 echo "<img src =\" " . $row['s3url'] . "\"  height='400' width='400'/><img src=\"".$row['fs3url']."\"/>";
+
+
             }
 
         if ($found ==false){
          echo "<img src =\" " . $row['s3url'] . "\" height='400' width='400'/>";
         }
-}}
+$row = $result->fetch_assoc() ;
+}} 
 
             $result->close();
        
