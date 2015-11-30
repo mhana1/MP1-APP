@@ -5,13 +5,13 @@ $rds = new Aws\Rds\RdsClient([
     'region'  => 'us-east-1'
 ]);
 
+
+
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
+
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mh-db',
 ]);
-
-
-$rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mh-db',]);
-
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 
