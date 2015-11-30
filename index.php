@@ -86,7 +86,7 @@ else{
 <footer class='footer'>
 <form enctype="multipart/form-data" action="gallery.php" method="POST">
     
-Enter Email of user for gallery to browse: <input type="email" name="email">
+Browse  gallery or specify email to browse specific user's gallery :<input type="email" name="email">
 <input type="submit" value="Load Gallery" />
 </form>
 </footer>
