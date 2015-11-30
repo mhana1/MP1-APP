@@ -76,7 +76,7 @@ $s3 = new Aws\S3\S3Client([
     'region'  => 'us-east-1'
 ]);
 $bucket = uniqid("php-mh-",false);
-//createing a bucket
+//creating a bucket
 $result = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $bucket
@@ -85,6 +85,21 @@ $result = $s3->createBucket([
 $s3->waitUntil('BucketExists',[
 	'Bucket' => $bucket
 ]);
+
+//add expiration date for the bucket
+$result = $s3->putBucketLifecycleConfiguration(array(
+        'Bucket' => $bucket,
+        'LifecycleConfiguration' => array(
+        'Rules' => array(
+                        array(
+                                'Expiration' => array('Days' => 1),
+                                'Prefix' => $bucket,
+                                'Status' => 'Enabled'
+                        )
+        ))
+
+));
+
 //uploading a file
 $result = $s3->putObject([
     'ACL' => 'public-read',
@@ -99,7 +114,7 @@ unlink($uploadfile);
 $im->writeImage($uploadfile);
 
 $bucket2 = uniqid("thumb-mh-",false);
-//createing a bucket
+//creating a bucket
 $result2 = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $bucket2
@@ -108,6 +123,23 @@ $result2 = $s3->createBucket([
 $s3->waitUntil('BucketExists',[
         'Bucket' => $bucket2
 ]);
+
+//add expiration date for the bucket
+$result2 = $s3->putBucketLifecycleConfiguration(array(
+        'Bucket' => $bucket2,
+        'LifecycleConfiguration' => array(
+        'Rules' => array(
+                        array(
+                                'Expiration' => array('Days' => 1),
+                                'Prefix' => $bucket2,
+                                'Status' => 'Enabled'
+                        )
+        ))
+
+));
+
+
+
 //uploading a file
 $result2 = $s3->putObject([
     'ACL' => 'public-read',
